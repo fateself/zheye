@@ -36,7 +36,7 @@ const testData: ColumnProps[] = [{
 const user: UserProps = {
   id: 1,
   name: '斌斌',
-  isLogin: false
+  isLogin: true
 }
 export default defineComponent({
   name: 'App',

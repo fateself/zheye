@@ -48,7 +48,6 @@ import DropdownItem from './DropdownItem.vue'
 export interface UserProps {
   isLogin: boolean;
   name?: string;
-  id?: number;
 }
 export default defineComponent({
   name: 'GlobalHeader',

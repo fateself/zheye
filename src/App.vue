@@ -14,11 +14,12 @@
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">密码</label>
-        <input
+        <validate-input
+          :rules="rules1"
+          v-model="passwordValue"
+          placeholder="请输入密码"
           type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-        />
+        ></validate-input>
       </div>
       <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
       <template #submit>
@@ -83,7 +84,13 @@ export default defineComponent({
       { type: "required", message: "can not be empty" },
       { type: "email", message: "请输入正确的邮箱地址" },
     ];
+    const rules1: RulesProp = [
+      { type: "required", message: "can not be empty" },
+      { type: "password", message: "密码长度太短" },
+    ];
     const emailValue = ref("");
+    const passwordValue = ref("");
+    
     const onFormSubmit = (result: boolean) => {
       console.log(result);
     };
@@ -91,7 +98,9 @@ export default defineComponent({
       testData,
       user,
       rules,
+      rules1,
       emailValue,
+      passwordValue,
       onFormSubmit
     };
   },

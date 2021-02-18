@@ -20,9 +20,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from "vue";
+import { defineComponent, PropType, reactive, onMounted } from "vue";
+import { emitter } from "./ValidateForm.vue";
 interface RuleProp {
-  type: "required" | "email";
+  type: "required" | "email" | "password";
   message: string;
 }
 export type RulesProp = RuleProp[];
@@ -51,14 +52,22 @@ export default defineComponent({
             case "email":
               passed = emailReg.test(emailRef.val);
               break;
+            case "password":
+              emailRef.val.length > 3 ? (passed = true) : (passed = false);
+              break;
             default:
               break;
           }
           return passed;
         });
         emailRef.error = !allpassed;
+        return allpassed;
       }
+      return true;
     };
+    onMounted(() => {
+      emitter.emit("form-item-created", validateEmail);
+    });
     //处理数据的双向绑定
     const changeValue = (e: KeyboardEvent) => {
       const value = (e.target as HTMLInputElement).value;
